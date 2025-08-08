@@ -67,6 +67,12 @@ npm install
 print_status "Building the application..."
 npm run build
 
+# Check if build was successful
+if [ $? -ne 0 ]; then
+    print_error "Build failed! Please check the error messages above."
+    exit 1
+fi
+
 # Check if .env file exists
 if [ ! -f .env ]; then
     print_warning ".env file not found. Please create it with your configuration:"
@@ -80,7 +86,7 @@ fi
 
 # Start PM2 processes
 print_status "Starting PM2 processes..."
-pm2 start ecosystem.config.js
+pm2 start ecosystem.config.cjs
 
 # Save PM2 configuration
 print_status "Saving PM2 configuration..."
